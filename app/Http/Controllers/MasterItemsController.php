@@ -22,10 +22,15 @@ class MasterItemsController extends Controller
         $data_search = MasterItem::query();
 
         if (!empty($kode)) $data_search = $data_search->where('kode', $kode);
-        if (!empty($nama)) $data_search = $data_search->where('nama', 'LIKE', '%' . $nama . '%');
-        if (!empty($hargamin)) $data_search = $data_search->where('harga_beli', '>=', $hargamin)->where('harga_beli', '<=', $hargamax);
+        if (!empty($hargamin)) {
+    $data_search = $data_search->where('harga_beli', '>=', $hargamin);
+}
 
-        $data_search = $data_search->select('kode', 'nama', 'jenis', 'harga_beli', 'laba', 'supplier')->orderBy('id')->get();
+if (!empty($hargamax)) {
+    $data_search = $data_search->where('harga_beli', '<=', $hargamax);
+}
+
+        $data_search = $data_search->select('kode', 'nama', 'jenis', 'harga_beli', 'laba', 'supplier','foto')->orderBy('id')->get();
 
 
         return json_encode([
@@ -71,6 +76,13 @@ class MasterItemsController extends Controller
         $data_item->kode = $kode;
         $data_item->supplier = $request->supplier;
         $data_item->jenis = $request->jenis;
+        
+        if ($request->hasFile('foto')) {
+    $file = $request->file('foto');
+    $namaFile = time() . '.' . $file->getClientOriginalExtension();
+    $file->move(public_path('uploads/items'), $namaFile);
+    $data_item->foto = $namaFile;
+}
         $data_item->save();
 
         return redirect('master-items');

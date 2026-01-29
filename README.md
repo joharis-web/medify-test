@@ -1,26 +1,20 @@
-# Medify Test Project
+## Medify Coding Test
 
-Project web berbasis Laravel yang dibuat untuk keperluan technical test.
-Aplikasi ini memiliki fitur login dan manajemen data dasar.
-
-## Tech Stack
-- Laravel
-- PHP 8
+### Requirements
+- PHP 8.1
 - MySQL
-- Vite
-- Bootstrap
+- Composer
+- Node.js
 
-## Cara Menjalankan Project
-1. composer install
-2. npm install
-3. cp .env.example .env
-4. php artisan key:generate
-5. php artisan migrate
-6. php artisan serve
+### Installation
+git clone ...
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+npm install && npm run build
+php artisan serve
 
-## Akun Login
-Email: 123@123  
-Password: 123
+### Features
+- Master Items CRUD
 
-## Catatan
-Project ini dibuat untuk keperluan test.
